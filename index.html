@@ -38,6 +38,7 @@ button{font:inherit;cursor:pointer}
 .meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-size:14px;color:var(--mut);margin-bottom:8px}
 .tag{border:1px solid var(--gold);color:var(--gold);border-radius:3px;padding:0 8px;font-size:13px}
 .q{font-size:19px;font-weight:500;margin:6px 0 12px}
+.eq{text-align:center;direction:ltr;margin:10px 0;font-size:1.1em;overflow-x:auto}
 .opt{display:flex;gap:10px;align-items:center;width:100%;text-align:start;background:var(--card);color:var(--tx);border:1.5px solid var(--bd);border-radius:5px;padding:11px 14px;margin:8px 0;font-size:17px;unicode-bidi:plaintext}
 .opt .mk{flex:none;width:20px;height:20px;border:2px solid var(--mut);border-radius:50%}
 .opt.multi .mk{border-radius:4px}
@@ -217,9 +218,9 @@ const Q=[
 },
 {
   t:"tf",l:1,
-  q:"المسقط الجبري العمودي للشعاع "+M("\\vec{A}")+" على حامل الشعاع غير المعدوم "+M("\\vec{B}")+" يُعطى بالعلاقة "+M("\\mathrm{proj}_{\\vec{B}}(\\vec{A})=\\dfrac{\\vec{A}\\cdot\\vec{B}}{\\|\\vec{A}\\|}")+".",
-  a:false,
-  e:"مسقط "+M("\\vec{A}")+" على "+M("\\vec{B}")+" يساوي "+M("A\\cos\\theta=\\dfrac{AB\\cos\\theta}{B}=\\dfrac{\\vec{A}\\cdot\\vec{B}}{\\|\\vec{B}\\|}")+" (مقسومًا على طويلة "+M("\\vec{B}")+" أي "+M("\\vec{A}\\cdot\\vec{u}_B")+" وليس على طويلة "+M("\\vec{A}")+")."
+  q:"إذا كان الجداء السلمي لشعاعين غير معدومين "+M("\\vec{A}\\cdot\\vec{B}")+" موجبًا، فإن الزاوية المحصورة بينهما أصغر من "+M("90^\\circ")+".",
+  a:true,
+  e:"لأن "+M("\\vec{A}\\cdot\\vec{B}=AB\\cos\\theta")+" مع "+M("A>0")+" و "+M("B>0")+"، فإشارة الجداء السلمي هي إشارة "+M("\\cos\\theta")+"؛ وإذا كان موجبًا فإن "+M("\\cos\\theta>0")+" أي "+M("\\theta<90^\\circ")+"."
 },
 {
   t:"multi",l:1,
@@ -241,7 +242,7 @@ const Q=[
 },
 {
   t:"mcq",l:2,
-  q:"شعاعان غير معدومين "+M("\\vec{V}_1")+" و "+M("\\vec{V}_2")+" متساويان في الطويلة "+M("(V_1=V_2=V)")+". إذا كانت طويلة مجموعهما تساوي "+M("\\sqrt{3}")+" من طويلة فرقهما "+M("(\\|\\vec{V}_1+\\vec{V}_2\\|=\\sqrt{3}\\,\\|\\vec{V}_1-\\vec{V}_2\\|)")+"، فإن الزاوية "+M("\\theta")+" المحصورة بينهما تساوي:",
+  q:"شعاعان غير معدومين "+M("\\vec{V}_1")+" و "+M("\\vec{V}_2")+" متساويان في الطويلة "+M("(V_1=V_2=V)")+". إذا كانت طويلة مجموعهما تساوي "+M("\\sqrt{3}")+" من طويلة فرقهما، أي:<div class='eq'>"+M("\\|\\vec{V}_1+\\vec{V}_2\\|=\\sqrt{3}\\,\\|\\vec{V}_1-\\vec{V}_2\\|")+"</div>فإن الزاوية "+M("\\theta")+" المحصورة بينهما تساوي:",
   o:[
     M("60^\\circ"),
     M("30^\\circ"),
@@ -264,14 +265,14 @@ const Q=[
 },
 {
   t:"mcq",l:2,
-  q:"تطير طائرة بسرعة "+M("V_1=200\\,\\mathrm{km\\cdot h^{-1}}")+" بالنسبة للهواء، وتهب رياح نحو الشرق بسرعة "+M("V_2=100\\,\\mathrm{km\\cdot h^{-1}}")+". لكي يكون المسار الفعلي للطائرة بالنسبة للأرض متجهًا نحو الشمال تمامًا، يجب على الطيار توجيه الطائرة بزاوية "+M("\\alpha")+" غرب الشمال قدرها:",
+  q:"يمشي شخص مسافة "+M("6\\,\\mathrm{m}")+" نحو الشرق ثم "+M("8\\,\\mathrm{m}")+" نحو الشمال. طويلة شعاع الانتقال الكلي من نقطة الانطلاق إلى نقطة الوصول تساوي:",
   o:[
-    M("\\alpha=30^\\circ")+" وتكون سرعتها الأرضية "+M("100\\sqrt{3}\\,\\mathrm{km\\cdot h^{-1}}"),
-    M("\\alpha=60^\\circ")+" وتكون سرعتها الأرضية "+M("100\\sqrt{3}\\,\\mathrm{km\\cdot h^{-1}}"),
-    M("\\alpha=30^\\circ")+" وتكون سرعتها الأرضية "+M("100\\sqrt{5}\\,\\mathrm{km\\cdot h^{-1}}"),
-    M("\\alpha=45^\\circ")+" وتكون سرعتها الأرضية "+M("100\\sqrt{2}\\,\\mathrm{km\\cdot h^{-1}}")
+    M("10\\,\\mathrm{m}"),
+    M("14\\,\\mathrm{m}"),
+    M("2\\,\\mathrm{m}"),
+    M("48\\,\\mathrm{m}")
   ],
-  e:"لكي تنعدم المركبة الشرقية للسرعة الكلية "+M("\\vec{V}=\\vec{V}_1+\\vec{V}_2")+" يشكل "+M("\\vec{V}_1")+" (الوتر) و "+M("\\vec{V}_2")+" و "+M("\\vec{V}")+" مثلثًا قائمًا: "+M("\\sin\\alpha=\\dfrac{V_2}{V_1}=\\dfrac{100}{200}=\\dfrac{1}{2}\\Rightarrow \\alpha=30^\\circ")+"، و "+M("V=\\sqrt{V_1^2-V_2^2}=100\\sqrt{3}\\,\\mathrm{km\\cdot h^{-1}}")+"."
+  e:"الانتقالان متعامدان، فبمبرهنة فيثاغورس: "+M("\\|\\Delta\\vec{r}\\|=\\sqrt{6^2+8^2}=\\sqrt{100}=10\\,\\mathrm{m}")+"، أما "+M("14\\,\\mathrm{m}")+" فهي المسافة المقطوعة وليست طويلة الانتقال."
 },
 {
   t:"num",l:2,
