@@ -363,7 +363,7 @@ function finish(){
  $("map").innerHTML=res.map((r,k)=>"<span class='"+(r?"g":"b")+"'>"+(k+1)+(r?"✓":"✗")+"</span>").join("");
  if(SHEET_URL){const lv=[0,1,2].map(l=>Q.reduce((a,q,k)=>a+(q.l===l&&res[k]?1:0),0));
   $("sent").textContent="جارٍ إرسال النتيجة إلى الأستاذ…";
-  fetch(SHEET_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({name:nm,score:s,l1:lv[0],l2:lv[1],l3:lv[2],sec,code,res:res.map(r=>r?1:0)})})
+  fetch(SHEET_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({quiz:"vector",name:nm,score:s,l1:lv[0],l2:lv[1],l3:lv[2],sec,code,res:res.map(r=>r?1:0)})})
   .then(()=>{$("sent").textContent="✓ تم إرسال نتيجتك إلى الأستاذ."}).catch(()=>{$("sent").textContent="تعذّر الإرسال التلقائي، أرسل لقطة الشاشة إلى الأستاذ."})}
 }
 </script>
