@@ -41,9 +41,10 @@ button{font:inherit;cursor:pointer}
 .steps::before,.steps::after{content:"";position:absolute;inset-inline-start:0;top:50%;height:2px;transform:translateY(-50%)}
 .steps::before{inset-inline-end:0;background:var(--bd)}
 .steps::after{width:var(--p);background:var(--pri);transition:width .5s cubic-bezier(.3,.7,.2,1)}
-.steps i{position:relative;z-index:1;width:9px;height:9px;border-radius:50%;background:var(--card);border:2px solid var(--bd);transition:transform .25s,background .25s,border-color .25s}
+.steps i{position:relative;z-index:1;width:8px;height:8px;border-radius:50%;background:var(--card);border:2px solid var(--bd);transition:transform .25s,background .25s,border-color .25s}
 .steps i.on{background:var(--amb);border-color:var(--amb);transform:scale(1.55)}
 .steps i.g{background:var(--ok);border-color:var(--ok)}
+.steps i.p{background:var(--amb);border-color:var(--amb)}
 .steps i.b{background:var(--no);border-color:var(--no)}
 .meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-size:14px;color:var(--mut)}
 .tag{background:var(--pri2);color:var(--pri);border-radius:20px;padding:0 11px;font-weight:600;font-size:13px}
@@ -76,7 +77,7 @@ button{font:inherit;cursor:pointer}
 .fb{margin:14px 0 0;padding:14px 16px;border-radius:12px;background:var(--bg);border-inline-start:4px solid var(--amb);font-size:15px;animation:rise .28s ease-out}
 .fb:has(b.ok){background:var(--okb);border-color:var(--ok)}
 .fb:has(b.no){background:var(--nob);border-color:var(--no)}
-.fb b.ok{color:var(--ok)}.fb b.no{color:var(--no)}
+.fb b.ok{color:var(--ok)}.fb b.no{color:var(--no)}.fb b.pt{color:var(--amb)}
 .keys{margin-top:10px;font-size:13px;color:var(--mut);text-align:center}
 @media (hover:none){.keys{display:none}}
 .note{border:1px solid var(--bd);border-inline-start:4px solid var(--amb);background:var(--bg);border-radius:10px;padding:10px 14px;margin:14px 0;font-size:14.5px}
@@ -98,9 +99,10 @@ button{font:inherit;cursor:pointer}
 .lvr .t{display:flex;justify-content:space-between;font-size:15px}
 .lvr .b{height:8px;border-radius:6px;background:var(--bd);overflow:hidden;margin-top:3px}
 .lvr .b i{display:block;height:100%;width:0;background:var(--pri);border-radius:6px;transition:width 1s .2s}
-.map{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin:10px 0;direction:rtl}
+.map{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin:10px 0;direction:rtl}
 .map span{text-align:center;border-radius:6px;font-size:13px;padding:3px 0;border:1px solid}
-.map .g{background:var(--okb);border-color:var(--ok);color:var(--ok)}.map .b{background:var(--nob);border-color:var(--no);color:var(--no)}
+.map .g{background:var(--okb);border-color:var(--ok);color:var(--ok)}.map .b{background:var(--nob);border-color:var(--no);color:var(--no)}.map .p{background:var(--bg);border-color:var(--amb);color:var(--amb)}
+#revbox .note{font-size:14px}
 @keyframes draw{to{stroke-dashoffset:0}}
 @keyframes fade{to{opacity:1}}
 @keyframes enter{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
@@ -127,16 +129,16 @@ button{font:inherit;cursor:pointer}
 <section id="start" class="card">
   <h2>تعليمات الاختبار</h2>
   <ul class="rules">
-    <li>20 سؤالًا متدرجة في العمق وموزعة على ثلاثة مستويات: أساسيات، تطبيقات، استدلال.</li>
-    <li>يغطي الاختبار: خصائص الأشعة، شعاع الوحدة، التركيب الهندسي والتحليلي، جيوب التمام الاتجاهية، والجداء السلمي وتطبيقاته.</li>
-    <li>أنواع الأسئلة: اختيار من متعدد، صح أو خطأ، اختيارات متعددة صحيحة، إجابة رقمية، ومقابلة بين عمودين.</li>
+    <li><span id="nq"></span> سؤالًا متدرجة في العمق وموزعة على ثلاثة مستويات: أساسيات، تطبيقات، استدلال. يُعاد ترتيب الأسئلة عشوائيًا داخل كل مستوى في كل محاولة.</li>
+    <li>يغطي الاختبار: خصائص الأشعة، شعاع الوحدة، التركيب الهندسي والتحليلي، جيوب التمام الاتجاهية، الجداء السلمي، الجداء الشعاعي، والجداء المختلط.</li>
+    <li>أنواع الأسئلة: اختيار من متعدد، صح أو خطأ، اختيارات متعددة صحيحة، إجابة رقمية، ومقابلة بين عمودين (تُمنح درجة جزئية في الاختيارات المتعددة والمقابلة).</li>
     <li>تظهر الإجابة الصحيحة مع الشرح المفصل بعد كل سؤال، ولا يمكن تعديل الإجابة بعد تأكيدها.</li>
     <li>في النهاية يظهر «كشف النتيجة»؛ صوّر الشاشة كاملة وأرسلها إلى الأستاذ.</li>
     <li id="logli" class="hide">يُسجَّل اسمك ونتيجتك تلقائيًا لدى الأستاذ لمتابعة مستوى الفوج فقط.</li>
   </ul>
   <div class="note"><b>ملاحظة:</b> نتيجة هذا الاختبار ليست لها علاقة بالتقييم في دراستك في المدرسة العليا للأساتذة، ولا تدخل في المعدل الفصلي. هذا الاختبار مخصص فقط لاختبار معلوماتك الفيزيائية ومهاراتك الرياضية والتدرب على درس الحساب الشعاعي.</div>
   <label for="name" class="mut">الاسم واللقب</label>
-  <input type="text" id="name" autocomplete="name">
+  <input type="text" id="name" autocomplete="name" maxlength="60">
   <button class="btn" id="go">بدء الاختبار</button>
 </section>
 
@@ -145,7 +147,7 @@ button{font:inherit;cursor:pointer}
   <div class="meta"><span id="cnt"></span><span class="tag" id="lvl"></span><span id="kind"></span><span id="streak" class="streak hide"></span><bdi id="clock" class="clk" dir="ltr"></bdi></div>
   <div class="q" id="q"></div>
   <div id="body"></div>
-  <div id="fb" class="fb hide"></div>
+  <div id="fb" class="fb hide" aria-live="polite"></div>
   <button class="btn" id="ok" disabled>تأكيد الإجابة</button>
   <div class="keys">اضغط 1 إلى 4 للاختيار، وEnter للتأكيد والانتقال.</div>
 </section>
@@ -165,9 +167,11 @@ button{font:inherit;cursor:pointer}
   <div class="mut vcap">شعاع نتيجتك: تكبر زاويته مع نسبة نجاحك، ويصير عموديًا عند العلامة الكاملة.</div>
   <dl id="info"></dl>
   <div class="lvs" id="lv"></div>
-  <div class="mut">خريطة الإجابات</div>
+  <div class="mut">خريطة الإجابات (أخضر: صحيحة، أصفر: جزئية، أحمر: خاطئة)</div>
   <div class="map" id="map"></div>
   <div class="mut" id="sent" style="text-align:center;margin:8px 0"></div>
+  <button class="btn alt" id="rev">راجع أخطائي</button>
+  <div id="revbox" class="hide"></div>
   <div class="note">اختبار تدريبي للأعمال الموجهة (TD) فيزياء 1، ولا يدخل في التقييم أو المعدل الفصلي.</div>
   <button class="btn alt" id="retry">إعادة المحاولة</button>
 </section>
@@ -178,14 +182,15 @@ const SHEET_URL="https://script.google.com/macros/s/AKfycbzKKKTQbitf-Vyv71g21lFl
 const LV=["المستوى الأول: أساسيات","المستوى الثاني: تطبيقات","المستوى الثالث: استدلال"];
 const KIND={mcq:"اختيار من متعدد",tf:"صح أو خطأ",multi:"اختيارات متعددة صحيحة",num:"إجابة رقمية",match:"مقابلة بين عمودين"};
 const M=s=>"$"+s+"$";
-const Q=[
+const ALL=[
+/* ===== المستوى الأول ===== */
 {
   t:"multi",l:0,
   q:"اختر جميع المقادير الفيزيائية التالية التي تُصنَّف ضمن <b>المقادير الشعاعية</b>:",
   o:[
     "كمية الحركة "+M("\\vec{p}=m\\vec{v}"),
     "الحقل الكهربائي "+M("\\vec{E}"),
-    "القوة الدافعة أو شدة القوة "+M("\\vec{F}"),
+    "القوة "+M("\\vec{F}"),
     "الطاقة الحركية "+M("E_c=\\tfrac{1}{2}mv^2")
   ],
   n:3,
@@ -206,6 +211,7 @@ const Q=[
     "الشعاعان متعامدان وطويلة "+M("\\vec{B}")+" تساوي "+M("3\\|\\vec{A}\\|"),
     "لهما اتجاهان متعاكسان وطويلة "+M("\\vec{A}")+" ثلاثة أضعاف طويلة "+M("\\vec{B}")
   ],
+  d:[null,"الطويلة موجبة دومًا، والإشارة السالبة تعني تعاكس الاتجاه لا نفس الاتجاه.","العلاقة "+M("\\vec{B}=\\alpha\\vec{A}")+" تعني التوازي وليس التعامد.","عكست العلاقة: الشعاع "+M("\\vec{B}")+" هو الأكبر طويلة وليس "+M("\\vec{A}")+"."],
   e:"العلاقة "+M("\\vec{B}=\\alpha\\vec{A}")+" تعني الارتباط الخطي (التوازي)، وبما أن "+M("\\alpha=-3<0")+" فهما متعاكسان في الاتجاه، والطويلة موجبة دومًا: "+M("\\|\\vec{B}\\|=|-3|\\,\\|\\vec{A}\\|=3\\|\\vec{A}\\|")+"."
 },
 {
@@ -232,6 +238,31 @@ const Q=[
   e:M("\\|\\vec{A}\\|=\\sqrt{2^2+(-3)^2+6^2}=\\sqrt{4+9+36}=\\sqrt{49}=7")+"."
 },
 {
+  t:"tf",l:0,
+  q:"الجداء الشعاعي "+M("\\vec{A}\\wedge\\vec{B}")+" لشعاعين غير متوازيين هو شعاع عمودي على كل من "+M("\\vec{A}")+" و "+M("\\vec{B}")+"، أي عمودي على المستوي الذي يحددانه.",
+  a:true,
+  e:"من تعريف الجداء الشعاعي: حامله عمودي على مستوي الشعاعين ( "+M("\\vec{C}\\perp\\vec{A}")+" و "+M("\\vec{C}\\perp\\vec{B}")+" )، وجهته تحددها قاعدة اليد اليمنى، وطويلته "+M("AB\\sin\\theta")+"."
+},
+{
+  t:"mcq",l:0,
+  q:"في معلم متعامد ومتجانس مباشر "+M("(O,\\vec{i},\\vec{j},\\vec{k})")+"، ما قيمة الجداء الشعاعي "+M("\\vec{j}\\wedge\\vec{i}")+"؟",
+  o:[M("-\\vec{k}"),M("\\vec{k}"),M("\\vec{0}"),M("1")],
+  d:[null,"هذه قيمة "+M("\\vec{i}\\wedge\\vec{j}")+"؛ الجداء الشعاعي غير تبديلي ويتغير اتجاهه بتبديل الترتيب.","الجداء الشعاعي ينعدم فقط للشعاعين المتوازيين، و "+M("\\vec{i}")+" و "+M("\\vec{j}")+" متعامدان.","الجداء الشعاعي ناتجه شعاع وليس عددًا؛ العدد ناتج الجداء السلمي."],
+  e:"لدينا "+M("\\vec{i}\\wedge\\vec{j}=\\vec{k}")+" والجداء الشعاعي ضد تبديلي: "+M("\\vec{j}\\wedge\\vec{i}=-(\\vec{i}\\wedge\\vec{j})=-\\vec{k}")+"."
+},
+{
+  t:"match",l:0,
+  q:"اربط كل مفهوم متعلق بالجداء الشعاعي والمختلط بما يوافقه:",
+  p:[
+    ["طويلة "+M("\\vec{A}\\wedge\\vec{B}")+" لشعاعين بينهما زاوية "+M("\\theta"), M("AB\\sin\\theta")],
+    ["شرط توازي شعاعين غير معدومين", M("\\vec{A}\\wedge\\vec{B}=\\vec{0}")],
+    ["شرط وقوع ثلاثة أشعة في مستوٍ واحد", M("\\vec{A}\\cdot(\\vec{B}\\wedge\\vec{C})=0")],
+    ["عزم قوة "+M("\\vec{F}")+" بالنسبة إلى النقطة "+M("O"), M("\\overrightarrow{OM}\\wedge\\vec{F}")]
+  ],
+  e:"طويلة الجداء الشعاعي تساوي مساحة متوازي الأضلاع "+M("AB\\sin\\theta")+"، وينعدم عند التوازي، وانعدام الجداء المختلط يعني انعدام حجم متوازي السطوح أي أن الأشعة الثلاثة مستوية، وعزم القوة هو "+M("\\vec{M}_{/O}=\\overrightarrow{OM}\\wedge\\vec{F}")+"."
+},
+/* ===== المستوى الثاني ===== */
+{
   t:"mcq",l:1,
   q:"إذا كان "+M("\\vec{V}_1=3\\vec{i}-2\\vec{j}+\\vec{k}")+" و "+M("\\vec{V}_2=\\vec{i}+2\\vec{j}-3\\vec{k}")+"، فإن شعاع الوحدة "+M("\\vec{u}_C")+" المحمول على الشعاع "+M("\\vec{C}=\\vec{V}_1+\\vec{V}_2")+" هو:",
   o:[
@@ -240,13 +271,14 @@ const Q=[
     M("4\\vec{i}-2\\vec{k}"),
     M("\\dfrac{1}{\\sqrt{5}}\\vec{i}+\\dfrac{2}{\\sqrt{5}}\\vec{j}")
   ],
+  d:[null,"القسمة على 5 خطأ؛ يجب القسمة على الطويلة "+M("2\\sqrt{5}")+".","هذا هو الشعاع "+M("\\vec{C}")+" نفسه وليس شعاع الوحدة (طويلته "+M("2\\sqrt{5}")+")." ,"خطأ في جمع المركبات: لا توجد مركبة على "+M("\\vec{j}")+" لأن "+M("-2+2=0")+"."],
   e:M("\\vec{C}=(3+1)\\vec{i}+(-2+2)\\vec{j}+(1-3)\\vec{k}=4\\vec{i}-2\\vec{k}")+"، وطويلته "+M("\\|\\vec{C}\\|=\\sqrt{16+4}=\\sqrt{20}=2\\sqrt{5}")+"، إذن "+M("\\vec{u}_C=\\dfrac{4\\vec{i}-2\\vec{k}}{2\\sqrt{5}}=\\dfrac{2}{\\sqrt{5}}\\vec{i}-\\dfrac{1}{\\sqrt{5}}\\vec{k}")+"."
 },
 {
   t:"num",l:1,
-  q:"قوتان "+M("\\vec{F}_1")+" و "+M("\\vec{F}_2")+" تلتقيان في نقطة مادية، شدّتاهما "+M("F_1=5\\,\\mathrm{N}")+" و "+M("F_2=8\\,\\mathrm{N}")+" والزاوية بين حامليهما "+M("\\theta=60^\\circ")+". احسب شدة شعاع الفرق "+M("D=\\|\\vec{F}_1-\\vec{F}_2\\|")+" بالنيوتن.",
-  a:7,
-  e:"بقانون جيب التمام للفرق: "+M("D=\\sqrt{F_1^2+F_2^2-2F_1F_2\\cos 60^\\circ}=\\sqrt{25+64-2(5)(8)(\\tfrac{1}{2})}=\\sqrt{89-40}=\\sqrt{49}=7\\,\\mathrm{N}")+"."
+  q:"قوتان "+M("\\vec{F}_1")+" و "+M("\\vec{F}_2")+" تلتقيان في نقطة مادية، شدّتاهما "+M("F_1=8\\,\\mathrm{N}")+" و "+M("F_2=15\\,\\mathrm{N}")+" والزاوية بين الشعاعين "+M("\\theta=60^\\circ")+". احسب شدة شعاع الفرق "+M("D=\\|\\vec{F}_1-\\vec{F}_2\\|")+" بالنيوتن.",
+  a:13,
+  e:"بقانون جيب التمام للفرق: "+M("D=\\sqrt{8^2+15^2-2(8)(15)\\cos 60^\\circ}=\\sqrt{289-120}=\\sqrt{169}=13\\,\\mathrm{N}")+"."
 },
 {
   t:"num",l:1,
@@ -257,12 +289,7 @@ const Q=[
 {
   t:"mcq",l:1,
   q:"شعاع "+M("\\vec{R}")+" في الفضاء "+M("OXYZ")+" يصنع زاوية "+M("\\alpha=60^\\circ")+" مع المحور "+M("OX")+" وزاوية "+M("\\beta=45^\\circ")+" مع المحور "+M("OY")+". ما قيمة الزاوية الحادة "+M("\\gamma")+" التي يصنعها مع المحور "+M("OZ")+"؟",
-  o:[
-    M("60^\\circ"),
-    M("30^\\circ"),
-    M("45^\\circ"),
-    M("75^\\circ")
-  ],
+  o:[M("60^\\circ"),M("30^\\circ"),M("45^\\circ"),M("75^\\circ")],
   e:"من علاقة جيوب التمام الاتجاهية: "+M("\\cos^2\\alpha+\\cos^2\\beta+\\cos^2\\gamma=1\\Rightarrow (\\tfrac{1}{2})^2+(\\tfrac{\\sqrt{2}}{2})^2+\\cos^2\\gamma=1\\Rightarrow \\tfrac{1}{4}+\\tfrac{1}{2}+\\cos^2\\gamma=1\\Rightarrow \\cos^2\\gamma=\\tfrac{1}{4}\\Rightarrow \\cos\\gamma=\\tfrac{1}{2}\\Rightarrow \\gamma=60^\\circ")+"."
 },
 {
@@ -295,20 +322,52 @@ const Q=[
   e:"العلاقات الثلاث الأولى صحيحة وتنتج من الهندسة المثلثية لمتوازي الأضلاع (قانون جيب التمام وقانون الجيوب)، أما الإشارة السالبة فتخص طويلة الفرق "+M("\\|\\vec{A}-\\vec{B}\\|")+"."
 },
 {
+  t:"num",l:1,
+  q:"ينتقل جسم نقطي على مسار مستقيم من النقطة "+M("A(1,-1,2)")+" إلى النقطة "+M("B(4,3,0)")+" (الإحداثيات بالمتر) تحت تأثير قوة ثابتة "+M("\\vec{F}=3\\vec{i}+2\\vec{j}-4\\vec{k}")+" (بالنيوتن). احسب عمل هذه القوة "+M("W_{A\\to B}")+" بالجول.",
+  a:25,
+  e:"شعاع الانتقال "+M("\\overrightarrow{AB}=(4-1)\\vec{i}+(3-(-1))\\vec{j}+(0-2)\\vec{k}=3\\vec{i}+4\\vec{j}-2\\vec{k}")+"، وعمل القوة هو الجداء السلمي: "+M("W=\\vec{F}\\cdot\\overrightarrow{AB}=3(3)+2(4)+(-4)(-2)=9+8+8=25\\,\\mathrm{J}")+"."
+},
+{
+  t:"mcq",l:1,
+  q:"في الفضاء المنسوب إلى معلم متعامد ومتجانس "+M("(O,\\vec{i},\\vec{j},\\vec{k})")+"، ما هي معادلة المستوي "+M("(\\mathcal{P})")+" المار بالنقطة "+M("B(1,2,3)")+" والعمودي على الشعاع "+M("\\vec{A}=2\\vec{i}+\\vec{j}-2\\vec{k}")+"، وما المسافة "+M("d")+" من المبدأ "+M("O")+" إلى هذا المستوي؟",
+  o:[
+    M("2x+y-2z+2=0")+" والمسافة "+M("d=\\dfrac{2}{3}"),
+    M("2x+y-2z-2=0")+" والمسافة "+M("d=\\dfrac{2}{3}"),
+    M("x+2y+3z-2=0")+" والمسافة "+M("d=\\dfrac{2}{\\sqrt{14}}"),
+    M("2x+y-2z+6=0")+" والمسافة "+M("d=2")
+  ],
+  e:"لأي نقطة "+M("M(x,y,z)\\in(\\mathcal{P})")+" يكون "+M("\\overrightarrow{BM}\\cdot\\vec{A}=0\\Rightarrow 2(x-1)+1(y-2)-2(z-3)=0\\Rightarrow 2x+y-2z+2=0")+"، وبُعد المبدأ "+M("O(0,0,0)")+" هو "+M("d=\\dfrac{|2(0)+0-2(0)+2|}{\\sqrt{2^2+1^2+(-2)^2}}=\\dfrac{2}{3}")+"."
+},
+{
+  t:"num",l:1,
+  q:"احسب المسقط العددي للشعاع "+M("\\vec{A}=\\vec{i}+2\\vec{j}+\\vec{k}")+" على الشعاع "+M("\\vec{B}=2\\vec{i}+3\\vec{j}+6\\vec{k}")+".",
+  a:2,
+  e:M("\\dfrac{\\vec{A}\\cdot\\vec{B}}{\\|\\vec{B}\\|}=\\dfrac{2+6+6}{\\sqrt{4+9+36}}=\\dfrac{14}{7}=2")+"."
+},
+{
+  t:"num",l:1,
+  q:"نعتبر "+M("\\vec{A}=\\vec{i}+2\\vec{j}+3\\vec{k}")+" و "+M("\\vec{B}=2\\vec{i}+\\vec{k}")+". احسب مركبة الشعاع "+M("\\vec{A}\\wedge\\vec{B}")+" على المحور "+M("OY")+".",
+  a:5,
+  e:"مركبة "+M("\\vec{j}")+" هي "+M("-(A_xB_z-A_zB_x)=-(1\\times1-3\\times2)=-(1-6)=5")+"؛ (والشعاع كاملًا "+M("\\vec{A}\\wedge\\vec{B}=2\\vec{i}+5\\vec{j}-4\\vec{k}")+")."
+},
+{
+  t:"mcq",l:1,
+  q:"تؤثر القوة "+M("\\vec{F}=3\\vec{j}\\ \\mathrm{N}")+" في نقطة "+M("M")+" موضعها "+M("\\overrightarrow{OM}=2\\vec{i}\\ \\mathrm{m}")+". عزم هذه القوة بالنسبة إلى "+M("O")+" هو:",
+  o:[M("6\\vec{k}\\ \\mathrm{N\\cdot m}"),M("-6\\vec{k}\\ \\mathrm{N\\cdot m}"),M("\\vec{0}"),M("6\\vec{i}\\ \\mathrm{N\\cdot m}")],
+  d:[null,"عكست ترتيب الجداء؛ العزم هو "+M("\\overrightarrow{OM}\\wedge\\vec{F}")+" وليس "+M("\\vec{F}\\wedge\\overrightarrow{OM}")+".","العزم ينعدم فقط إذا كان "+M("\\overrightarrow{OM}")+" موازيًا لـ "+M("\\vec{F}")+"، وهنا هما متعامدان فالعزم أعظمي.","الناتج عمودي على المستوي الذي يحوي الشعاعين ("+M("\\vec{i},\\vec{j}")+") أي محمول على "+M("\\vec{k}")+"."],
+  e:M("\\vec{M}_{/O}=\\overrightarrow{OM}\\wedge\\vec{F}=(2\\vec{i})\\wedge(3\\vec{j})=6(\\vec{i}\\wedge\\vec{j})=6\\vec{k}\\ \\mathrm{N\\cdot m}")+"."
+},
+/* ===== المستوى الثالث ===== */
+{
   t:"num",l:2,
-  q:"شعاعان "+M("\\vec{V}_1")+" و "+M("\\vec{V}_2")+" طولاَهما "+M("V_1=6")+" و "+M("V_2=8")+". إذا علمت أن طويلة مجموعهما "+M("S=\\|\\vec{V}_1+\\vec{V}_2\\|=12")+"، فاحسب <b>مربع</b> طويلة فرقهما "+M("D^2=\\|\\vec{V}_1-\\vec{V}_2\\|^2")+".",
+  q:"شعاعان "+M("\\vec{V}_1")+" و "+M("\\vec{V}_2")+" طويلتاهما "+M("V_1=6")+" و "+M("V_2=8")+". إذا علمت أن طويلة مجموعهما "+M("S=\\|\\vec{V}_1+\\vec{V}_2\\|=12")+"، فاحسب <b>مربع</b> طويلة فرقهما "+M("D^2=\\|\\vec{V}_1-\\vec{V}_2\\|^2")+".",
   a:56,
   e:"من مطابقة قطري متوازي الأضلاع: "+M("S^2+D^2=2(V_1^2+V_2^2)\\Rightarrow 12^2+D^2=2(6^2+8^2)\\Rightarrow 144+D^2=2(100)=200\\Rightarrow D^2=56")+"."
 },
 {
   t:"mcq",l:2,
-  q:"شعاعان غير معدومين "+M("\\vec{V}_1")+" و "+M("\\vec{V}_2")+" متساويان في الطويلة "+M("(V_1=V_2=V)")+". إذا كانت طويلة مجموعهما تساوي "+M("\\sqrt{3}")+" من طويلة فرقهما، أي:<div class='eq'>"+M("\\|\\vec{V}_1+\\vec{V}_2\\|=\\sqrt{3}\\,\\|\\vec{V}_1-\\vec{V}_2\\|")+"</div>فإن الزاوية "+M("\\theta")+" المحصورة بينهما تساوي:",
-  o:[
-    M("60^\\circ"),
-    M("30^\\circ"),
-    M("120^\\circ"),
-    M("45^\\circ")
-  ],
+  q:"شعاعان غير معدومين "+M("\\vec{V}_1")+" و "+M("\\vec{V}_2")+" متساويان في الطويلة "+M("(V_1=V_2=V)")+". إذا كانت طويلة مجموعهما تساوي "+M("\\sqrt{3}")+" أضعاف طويلة فرقهما، أي:<div class='eq'>"+M("\\|\\vec{V}_1+\\vec{V}_2\\|=\\sqrt{3}\\,\\|\\vec{V}_1-\\vec{V}_2\\|")+"</div>فإن الزاوية "+M("\\theta")+" المحصورة بينهما تساوي:",
+  o:[M("60^\\circ"),M("30^\\circ"),M("120^\\circ"),M("45^\\circ")],
   e:"بتربيع الطرفين: "+M("S^2=3D^2\\Rightarrow 2V^2(1+\\cos\\theta)=3\\cdot 2V^2(1-\\cos\\theta)\\Rightarrow 1+\\cos\\theta=3-3\\cos\\theta\\Rightarrow 4\\cos\\theta=2\\Rightarrow \\cos\\theta=\\tfrac{1}{2}\\Rightarrow \\theta=60^\\circ")+"."
 },
 {
@@ -325,20 +384,10 @@ const Q=[
 },
 {
   t:"mcq",l:2,
-  q:"يمشي شخص مسافة "+M("6\\,\\mathrm{m}")+" نحو الشرق ثم "+M("8\\,\\mathrm{m}")+" نحو الشمال. طويلة شعاع الانتقال الكلي من نقطة الانطلاق إلى نقطة الوصول تساوي:",
-  o:[
-    M("10\\,\\mathrm{m}"),
-    M("14\\,\\mathrm{m}"),
-    M("2\\,\\mathrm{m}"),
-    M("48\\,\\mathrm{m}")
-  ],
-  e:"الانتقالان متعامدان، فبمبرهنة فيثاغورس: "+M("\\|\\Delta\\vec{r}\\|=\\sqrt{6^2+8^2}=\\sqrt{100}=10\\,\\mathrm{m}")+"، أما "+M("14\\,\\mathrm{m}")+" فهي المسافة المقطوعة وليست طويلة الانتقال."
-},
-{
-  t:"num",l:2,
-  q:"ينتقل جسم نقطي على مسار مستقيم من النقطة "+M("A(1,-1,2)")+" إلى النقطة "+M("B(4,3,0)")+" (الإحداثيات بالمتر) تحت تأثير قوة ثابتة "+M("\\vec{F}=3\\vec{i}+2\\vec{j}-4\\vec{k}")+" (بالنيوتن). احسب عمل هذه القوة "+M("W_{A\\to B}")+" بالجول.",
-  a:25,
-  e:"شعاع الانتقال "+M("\\overrightarrow{AB}=(4-1)\\vec{i}+(3-(-1))\\vec{j}+(0-2)\\vec{k}=3\\vec{i}+4\\vec{j}-2\\vec{k}")+"، وعمل القوة هو الجداء السلمي: "+M("W=\\vec{F}\\cdot\\overrightarrow{AB}=3(3)+2(4)+(-4)(-2)=9+8+8=25\\,\\mathrm{J}")+"."
+  q:"شعاعان "+M("\\vec{V}_1")+" و "+M("\\vec{V}_2")+" طويلتاهما "+M("5")+" و "+M("12")+". أي القيم التالية <b>لا يمكن</b> أن تكون طويلة محصلتهما؟",
+  o:[M("18"),M("7"),M("13"),M("17")],
+  d:[null,M("7")+" ممكنة عند التعاكس: "+M("12-5=7")+".",M("13")+" ممكنة عند التعامد: "+M("\\sqrt{25+144}=13")+".",M("17")+" ممكنة عند التوازي في نفس الاتجاه: "+M("12+5=17")+"."],
+  e:"طويلة المحصلة محصورة بين "+M("|12-5|=7")+" و "+M("12+5=17")+"، فالقيمة "+M("18")+" مستحيلة؛ و "+M("13")+" تحدث عند التعامد."
 },
 {
   t:"match",l:2,
@@ -352,38 +401,153 @@ const Q=[
   e:"تساوي القطرين يعني تعامد الضلعين؛ وتعامد القطرين "+M("(\\vec{A}+\\vec{B})\\cdot(\\vec{A}-\\vec{B})=A^2-B^2=0")+" يعني تساوي الطويلتين "+M("A=B")+"؛ ومطابقة "+M("2AB\\cos\\theta=AB")+" تعطي "+M("\\theta=60^\\circ")+"."
 },
 {
+  t:"num",l:2,
+  q:"شعاعان "+M("\\vec{A}")+" و "+M("\\vec{B}")+" طويلتاهما "+M("3")+" و "+M("4")+" ويحققان "+M("\\|\\vec{A}+\\vec{B}\\|=\\|\\vec{A}-\\vec{B}\\|")+". احسب "+M("\\|\\vec{A}+\\vec{B}\\|")+".",
+  a:5,
+  e:"تساوي طويلتي المجموع والفرق يعني "+M("\\vec{A}\\cdot\\vec{B}=0")+" (تعامد)، فيكون "+M("\\sqrt{3^2+4^2}=5")+"."
+},
+{
+  t:"tf",l:2,
+  q:"يمكن لشعاع في الفضاء أن يصنع مع المحاور "+M("OX,OY,OZ")+" الزوايا "+M("30^\\circ,\\,45^\\circ,\\,60^\\circ")+" على الترتيب.",
+  a:false,
+  e:M("\\cos^2 30^\\circ+\\cos^2 45^\\circ+\\cos^2 60^\\circ=\\tfrac{3}{4}+\\tfrac{1}{2}+\\tfrac{1}{4}=\\tfrac{3}{2}\\neq1")+"، فالعلاقة الاتجاهية غير محققة."
+},
+{
+  t:"tf",l:2,
+  q:"الجداء السلمي عملية ترابطية: "+M("(\\vec{A}\\cdot\\vec{B})\\cdot\\vec{C}=\\vec{A}\\cdot(\\vec{B}\\cdot\\vec{C})")+".",
+  a:false,
+  e:"لأن "+M("\\vec{A}\\cdot\\vec{B}")+" عدد، فالتعبيران يؤولان إلى ضرب عدد في شعاع: الأول موازٍ لـ "+M("\\vec{C}")+" والثاني موازٍ لـ "+M("\\vec{A}")+"، وهما مختلفان عمومًا."
+},
+{
+  t:"num",l:2,
+  q:"أوجد قيمة الوسيط "+M("m")+" التي تجعل الأشعة "+M("\\vec{A}=\\vec{i}+2\\vec{j}+3\\vec{k}")+" و "+M("\\vec{B}=\\vec{j}+\\vec{k}")+" و "+M("\\vec{C}=2\\vec{i}+m\\vec{j}+6\\vec{k}")+" واقعة في مستوٍ واحد.",
+  a:4,
+  e:"شرط المستوية: "+M("\\vec{A}\\cdot(\\vec{B}\\wedge\\vec{C})=0")+" أي انعدام المحدد: "+M("1(6-m)-2(0-2)+3(0-2)=6-m+4-6=4-m=0\\Rightarrow m=4")+"."
+},
+{
   t:"mcq",l:2,
-  q:"في الفضاء المنسوب إلى معلم متعامد ومتجانس "+M("(O,\\vec{i},\\vec{j},\\vec{k})")+"، ما هي معادلة المستوي "+M("(\\mathcal{P})")+" المار بالنقطة "+M("B(1,2,3)")+" والعمودي على الشعاع "+M("\\vec{A}=2\\vec{i}+\\vec{j}-2\\vec{k}")+"، وما المسافة "+M("d")+" من المبدأ "+M("O")+" إلى هذا المستوي؟",
+  q:"شعاعان "+M("\\vec{A}")+" و "+M("\\vec{B}")+" طويلتاهما "+M("5")+" و "+M("4")+" وجداؤهما السلمي "+M("\\vec{A}\\cdot\\vec{B}=12")+". ما طويلة جدائهما الشعاعي "+M("\\|\\vec{A}\\wedge\\vec{B}\\|")+"؟",
+  o:[M("16"),M("12"),M("20"),M("8")],
+  d:[null,"هذا هو الجداء السلمي "+M("AB\\cos\\theta")+" وليس "+M("AB\\sin\\theta")+".","هذا حاصل ضرب الطويلتين "+M("AB")+"، ولا يساوي الجداء الشعاعي إلا عند التعامد (وهنا الجداء السلمي غير معدوم).","جرّب العلاقة "+M("\\|\\vec{A}\\wedge\\vec{B}\\|^2+(\\vec{A}\\cdot\\vec{B})^2=A^2B^2")+"."],
+  e:M("\\cos\\theta=\\dfrac{12}{20}=0.6\\Rightarrow\\sin\\theta=0.8")+"، إذن "+M("\\|\\vec{A}\\wedge\\vec{B}\\|=AB\\sin\\theta=20\\times0.8=16")+"؛ أو بمطابقة لاغرانج: "+M("\\sqrt{20^2-12^2}=\\sqrt{256}=16")+"."
+},
+{
+  t:"multi",l:2,
+  q:"اختر جميع العبارات الصحيحة المتعلقة بالجداء المختلط "+M("\\vec{A}\\cdot(\\vec{B}\\wedge\\vec{C})")+":",
   o:[
-    M("2x+y-2z+2=0")+" والمسافة "+M("d=\\dfrac{2}{3}"),
-    M("2x+y-2z-2=0")+" والمسافة "+M("d=\\dfrac{2}{3}"),
-    M("x+2y+3z-2=0")+" والمسافة "+M("d=\\dfrac{2}{\\sqrt{14}}"),
-    M("2x+y-2z+6=0")+" والمسافة "+M("d=2")
+    "لا يتغير بالتبديل الدوري: "+M("\\vec{A}\\cdot(\\vec{B}\\wedge\\vec{C})=\\vec{B}\\cdot(\\vec{C}\\wedge\\vec{A})"),
+    "تبديل شعاعين منه يغيّر إشارته",
+    "قيمته المطلقة تساوي حجم متوازي السطوح المنشأ على الأشعة الثلاثة",
+    "ناتجه شعاع عمودي على المستوي المحدد بـ "+M("\\vec{A}")+" و "+M("\\vec{B}")
   ],
-  e:"لأي نقطة "+M("M(x,y,z)\\in(\\mathcal{P})")+" يكون "+M("\\overrightarrow{BM}\\cdot\\vec{A}=0\\Rightarrow 2(x-1)+1(y-2)-2(z-3)=0\\Rightarrow 2x+y-2z+2=0")+"، وبُعد المبدأ "+M("O(0,0,0)")+" هو "+M("d=\\dfrac{|2(0)+0-2(0)+2|}{\\sqrt{2^2+1^2+(-2)^2}}=\\dfrac{2}{3}")+"."
+  n:3,
+  e:"الجداء المختلط مقدار <b>سلمي</b> (وليس شعاعًا): ينعدم عند استواء الأشعة الثلاثة، ويحافظ على إشارته بالتبديل الدوري وتتغير إشارته بتبديل شعاعين، وقيمته المطلقة هي حجم متوازي السطوح."
+}
+,
+{
+  t:"mcq",l:0,
+  q:"أي المقادير الفيزيائية التالية <b>مقدار سلمي</b>؟",
+  o:["الشحنة الكهربائية "+M("q"),"التسارع "+M("\\vec{a}"),"السرعة "+M("\\vec{v}"),"القوة "+M("\\vec{F}")],
+  d:[null,"التسارع مقدار شعاعي: له حامل واتجاه وطويلة.","السرعة مقدار شعاعي: يلزم تحديد اتجاهها.","القوة مقدار شعاعي: لها نقطة تأثير وحامل وجهة وشدة."],
+  e:"الشحنة الكهربائية يكفي لتحديدها عدد (مع الإشارة)، فهي مقدار سلمي، بينما القوة والسرعة والتسارع مقادير شعاعية."
+},
+{
+  t:"mcq",l:1,
+  q:"قوتان متعامدتان "+M("\\vec{F}_1")+" و "+M("\\vec{F}_2")+" تؤثران في نقطة مادية، شدّتاهما "+M("F_1=5\\,\\mathrm{N}")+" و "+M("F_2=12\\,\\mathrm{N}")+". ما الزاوية "+M("\\alpha")+" بين المحصلة والقوة "+M("\\vec{F}_1")+"؟",
+  o:[M("67.4^\\circ"),M("22.6^\\circ"),M("45^\\circ"),M("90^\\circ")],
+  d:[null,"هذه الزاوية بين المحصلة و "+M("\\vec{F}_2")+"؛ استعملت "+M("F_1/F_2")+" بدل "+M("F_2/F_1")+".","تكون "+M("45^\\circ")+" فقط عند تساوي الشدتين.","المحصلة لا تعامد "+M("\\vec{F}_1")+" إلا إذا انعدمت مركبتها الموازية لها."],
+  e:"المثلث قائم، فـ "+M("\\tan\\alpha=\\dfrac{F_2}{F_1}=\\dfrac{12}{5}=2.4\\Rightarrow\\alpha\\approx67.4^\\circ")+" (وشدة المحصلة "+M("\\sqrt{25+144}=13\\,\\mathrm{N}")+")."
+},
+{
+  t:"num",l:1,
+  q:"تطير طائرة بسرعة "+M("V_1=150\\,\\mathrm{km/h}")+" بالنسبة للهواء، وتهب رياح سرعتها "+M("V_2=90\\,\\mathrm{km/h}")+" في اتجاه يصنع زاوية "+M("\\theta=60^\\circ")+" مع مسار الطائرة. احسب سرعة الطائرة بالنسبة للأرض "+M("V=\\|\\vec{V}_1+\\vec{V}_2\\|")+" بوحدة "+M("\\mathrm{km/h}")+".",
+  a:210,
+  e:"بقانون جيب التمام: "+M("V=\\sqrt{150^2+90^2+2(150)(90)\\cos60^\\circ}=\\sqrt{22500+8100+13500}=\\sqrt{44100}=210\\,\\mathrm{km/h}")+"."
+},
+{
+  t:"num",l:1,
+  q:"شعاعان "+M("\\vec{A}")+" و "+M("\\vec{B}")+" طويلتاهما "+M("5")+" و "+M("8")+" والزاوية بينهما "+M("\\theta=150^\\circ")+". احسب طويلة جدائهما الشعاعي "+M("\\|\\vec{A}\\wedge\\vec{B}\\|")+".",
+  a:20,
+  e:M("\\|\\vec{A}\\wedge\\vec{B}\\|=AB\\sin\\theta=5\\times8\\times\\sin150^\\circ=40\\times\\tfrac{1}{2}=20")+"."
+},
+{
+  t:"num",l:1,
+  q:"يشدّ ميكانيكي برغيًا بمفتاح طوله "+M("0.25\\,\\mathrm{m}")+" بقوة شدتها "+M("40\\,\\mathrm{N}")+" تصنع زاوية "+M("30^\\circ")+" مع المفتاح. احسب شدة عزم القوة بالنسبة لمحور البرغي بوحدة "+M("\\mathrm{N\\cdot m}")+".",
+  a:5,
+  e:M("M=\\|\\vec{r}\\wedge\\vec{F}\\|=rF\\sin\\theta=0.25\\times40\\times\\sin30^\\circ=0.25\\times40\\times0.5=5\\,\\mathrm{N\\cdot m}")+"؛ ويبلغ العزم قيمته العظمى "+M("10\\,\\mathrm{N\\cdot m}")+" عندما تكون القوة عمودية على المفتاح."
+},
+{
+  t:"num",l:1,
+  q:"متوازي سطوح قاعدته معين، يحدده الأشعة "+M("\\vec{a}=4\\vec{i}+3\\vec{j}")+" و "+M("\\vec{b}=4\\vec{i}-3\\vec{j}")+" و "+M("\\vec{c}=\\vec{i}+5\\vec{k}")+" (الوحدة nm). احسب حجمه بوحدة "+M("\\mathrm{nm}^3")+".",
+  a:120,
+  e:M("\\vec{a}\\wedge\\vec{b}=-24\\vec{k}")+" (مساحة القاعدة 24)، والحجم هو القيمة المطلقة للجداء المختلط: "+M("V=|\\vec{c}\\cdot(\\vec{a}\\wedge\\vec{b})|=|5\\times(-24)|=120\\,\\mathrm{nm}^3")+"؛ وهو يساوي مساحة القاعدة × الارتفاع العمودي "+M("24\\times5")+"."
+},
+{
+  t:"mcq",l:2,
+  q:"في معلم متعامد ومتجانس مباشر، ما قيمة "+M("(\\vec{i}\\wedge\\vec{j})\\wedge\\vec{j}")+"؟",
+  o:[M("-\\vec{i}"),M("\\vec{i}"),M("\\vec{k}"),M("\\vec{0}")],
+  d:[null,"نسيت أن "+M("\\vec{k}\\wedge\\vec{j}=-\\vec{i}")+" (الجداء الشعاعي ضد تبديلي).","هذا ناتج الجداء الأول "+M("\\vec{i}\\wedge\\vec{j}")+" فقط.","الجداء ينعدم للمتوازيين فقط، و "+M("\\vec{k}")+" و "+M("\\vec{j}")+" متعامدان."],
+  e:M("\\vec{i}\\wedge\\vec{j}=\\vec{k}")+" ثم "+M("\\vec{k}\\wedge\\vec{j}=-(\\vec{j}\\wedge\\vec{k})=-\\vec{i}")+"."
+},
+{
+  t:"mcq",l:2,
+  q:"يدخل بروتون ("+M("q=+1.6\\times10^{-19}\\,\\mathrm{C}")+") بسرعة "+M("\\vec{v}=2\\times10^{6}\\vec{i}\\ \\mathrm{m/s}")+" حقلًا مغناطيسيًا منتظمًا "+M("\\vec{B}=0.5\\vec{k}\\ \\mathrm{T}")+". القوة المغناطيسية "+M("\\vec{F}=q\\,\\vec{v}\\wedge\\vec{B}")+" هي:",
+  o:[M("1.6\\times10^{-13}\\,\\mathrm{N}")+" في الاتجاه "+M("-\\vec{j}"),M("1.6\\times10^{-13}\\,\\mathrm{N}")+" في الاتجاه "+M("+\\vec{j}"),M("1.6\\times10^{-13}\\,\\mathrm{N}")+" في الاتجاه "+M("\\vec{i}"),"معدومة"],
+  d:[null,"عكست ترتيب الجداء أو اعتبرت الشحنة سالبة؛ "+M("\\vec{i}\\wedge\\vec{k}=-\\vec{j}")+".","القوة عمودية على السرعة دائمًا، فلا يمكن أن تكون موازية لـ "+M("\\vec{v}")+".","تنعدم القوة فقط إذا كانت السرعة موازية للحقل، وهنا هما متعامدان."],
+  e:M("\\vec{v}\\wedge\\vec{B}=(2\\times10^6)(0.5)(\\vec{i}\\wedge\\vec{k})=-10^6\\vec{j}")+"، إذن "+M("\\vec{F}=1.6\\times10^{-19}\\times(-10^6\\vec{j})=-1.6\\times10^{-13}\\vec{j}\\,\\mathrm{N}")+". القوة عمودية على السرعة فلا تنجز عملًا ولا تغيّر شدة السرعة."
+},
+{
+  t:"num",l:2,
+  q:"عزم قوة بالنسبة للمبدأ "+M("O")+" هو "+M("\\vec{M}_O=6\\vec{i}+3\\vec{j}-3\\vec{k}\\ (\\mathrm{N\\cdot m})")+". احسب عزمها "+M("M_\\Delta")+" بالنسبة لمحور "+M("(\\Delta)")+" يمر بـ "+M("O")+" ويحمله شعاع الوحدة "+M("\\vec{u}=\\tfrac{1}{3}(\\vec{i}+2\\vec{j}+2\\vec{k})")+".",
+  a:2,
+  e:M("M_\\Delta=\\vec{u}\\cdot\\vec{M}_O=\\dfrac{1\\times6+2\\times3+2\\times(-3)}{3}=\\dfrac{6+6-6}{3}=2\\,\\mathrm{N\\cdot m}")+"."
+},
+{
+  t:"tf",l:2,
+  q:"عزم قوة بالنسبة لمحور يمر بالنقطة "+M("O")+" قد يكون أكبر من شدة عزمها "+M("\\|\\vec{M}_O\\|")+" بالنسبة إلى "+M("O")+".",
+  a:false,
+  e:"لأن "+M("M_\\Delta=\\vec{u}\\cdot\\vec{M}_O=\\|\\vec{M}_O\\|\\cos\\varphi")+" مع "+M("\\|\\vec{u}\\|=1")+"؛ فالمحور لا يأخذ إلا مركبة العزم الموازية له، ومنه "+M("|M_\\Delta|\\le\\|\\vec{M}_O\\|")+". وقد تكون إشارة "+M("M_\\Delta")+" سالبة وهذا يدل على جهة الدوران بالنسبة لـ "+M("\\vec{u}")+"."
+},
+{
+  t:"mcq",l:2,
+  q:"قوة "+M("\\vec{F}")+" تؤثر في النقطة "+M("P")+"، وعزمها بالنسبة للمبدأ "+M("O")+" هو "+M("\\vec{M}_O=\\overrightarrow{OP}\\wedge\\vec{F}")+". عزمها بالنسبة لنقطة "+M("Q")+" يُعطى بالعلاقة:",
+  o:[M("\\vec{M}_Q=\\vec{M}_O+\\overrightarrow{QO}\\wedge\\vec{F}"),M("\\vec{M}_Q=\\vec{M}_O+\\overrightarrow{OQ}\\wedge\\vec{F}"),M("\\vec{M}_Q=\\vec{M}_O\\wedge\\overrightarrow{QO}"),M("\\vec{M}_Q=\\vec{M}_O\\cdot\\vec{F}")],
+  d:[null,"خطأ في الإشارة: يجب أن يكون الشعاع من "+M("Q")+" إلى "+M("O")+" وليس العكس.","العزم بالنسبة لنقطة يُحسب بجداء شعاعي لشعاع الموضع في القوة، لا بجداء العزم نفسه بشعاع آخر.","الجداء السلمي ناتجه عدد، بينما العزم شعاع."],
+  e:"لأن "+M("\\overrightarrow{QP}=\\overrightarrow{QO}+\\overrightarrow{OP}")+"، وبتوزيعية الجداء الشعاعي: "+M("\\vec{M}_Q=\\overrightarrow{QP}\\wedge\\vec{F}=\\overrightarrow{QO}\\wedge\\vec{F}+\\overrightarrow{OP}\\wedge\\vec{F}=\\vec{M}_O+\\overrightarrow{QO}\\wedge\\vec{F}")+"."
 }
 ];
+ALL.forEach((q,k)=>q.k=k);
+let Q=[];
 const $=id=>document.getElementById(id);
 const rm=el=>{try{window.renderMathInElement&&renderMathInElement(el,{delimiters:[{left:"$",right:"$",display:false}],throwOnError:false})}catch(e){}};
 const sh=a=>{for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
-let i=0,res=[],t0=0,nm="",cur={},done=false,clk=null,streak=0;
+const order=()=>{Q=[0,1,2].flatMap(l=>sh(ALL.filter(q=>q.l===l)))};
+window.addEventListener("load",()=>rm(document.body));
+let i=0,res=[],t0=0,nm="",cur={},done=false,clk=null,streak=0,att=0;
 const tick=()=>{const s=Math.floor((Date.now()-t0)/1000);$("clock").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")};
+const dots=()=>{$("steps").innerHTML=Q.map(()=>"<i></i>").join("")};
+order();dots();$("nq").textContent=ALL.length;
 if(INST){$("inst").textContent=INST}else $("inst").remove();
-$("steps").innerHTML=Q.map(()=>"<i></i>").join("");
 if(SHEET_URL)$("logli").classList.remove("hide");
 $("go").onclick=()=>{nm=$("name").value.trim();if(!nm){$("name").focus();return}
+ try{att=(+localStorage.getItem("vq_att")||0)+1;localStorage.setItem("vq_att",att)}catch(e){att=1}
  document.body.classList.add("run");t0=Date.now();tick();clk=setInterval(tick,1000);$("start").classList.add("hide");$("quiz").classList.remove("hide");show()};
-$("retry").onclick=()=>{i=0;res=[];cur={};done=false;streak=0;$("streak").classList.add("hide");$("res").classList.add("hide");$("start").classList.remove("hide");$("steps").innerHTML=Q.map(()=>"<i></i>").join("")};
+$("retry").onclick=()=>{i=0;res=[];cur={};done=false;streak=0;order();dots();$("streak").classList.add("hide");$("res").classList.add("hide");$("revbox").classList.add("hide");$("start").classList.remove("hide");window.scrollTo({top:0})};
+$("rev").onclick=()=>{const b=$("revbox");
+ if(!b.classList.contains("hide")){b.classList.add("hide");return}
+ const w=Q.map((q,k)=>res[k]<1?"<div class='note'><b>سؤال "+(k+1)+":</b> "+q.q+"<br><b>الشرح:</b> "+q.e+"</div>":"").join("");
+ b.innerHTML=w||"<div class='note'>لا توجد أخطاء. أحسنت!</div>";b.classList.remove("hide");rm(b)};
 function show(){
  const q=Q[i];done=false;cur={sel:new Set()};
+ window.scrollTo({top:0,behavior:"smooth"});
  $("steps").style.setProperty("--p",(i/(Q.length-1)*100)+"%");
  ["q","body"].forEach(id=>{const e=$(id);e.classList.remove("enter");void e.offsetWidth;e.classList.add("enter")});
- [...$("steps").children].forEach((s,k)=>{s.className=k<i?(res[k]?"g":"b"):k===i?"on":""});
+ [...$("steps").children].forEach((s,k)=>{s.className=k<i?(res[k]===1?"g":res[k]>0?"p":"b"):k===i?"on":""});
  $("cnt").textContent="السؤال "+(i+1)+" من "+Q.length;$("lvl").textContent=LV[q.l];$("kind").textContent=KIND[q.t];
  $("q").innerHTML=q.q;$("fb").classList.add("hide");$("ok").textContent="تأكيد الإجابة";$("ok").disabled=true;
  const b=$("body");b.innerHTML="";
  if(q.t==="num"){
-  const n=document.createElement("input");n.type="text";n.inputMode="decimal";n.placeholder="أدخل القيمة العددية (مثال: 7)";n.dir="ltr";n.style.textAlign="center";
+  const n=document.createElement("input");n.type="text";n.inputMode="decimal";n.placeholder="أدخل القيمة العددية";n.dir="ltr";n.style.textAlign="center";
   n.oninput=()=>{$("ok").disabled=!n.value.trim()};n.onkeydown=e=>{if(e.key==="Enter"&&!n.disabled&&!$("ok").disabled)$("ok").click()};b.appendChild(n);cur.inp=n;
  }else if(q.t==="match"){
   const vals=sh(q.p.map(p=>p[1]));cur.rows=[];
@@ -391,10 +555,12 @@ function show(){
    const l=document.createElement("span");l.innerHTML=p[0];
    const c=document.createElement("div");c.className="chips";const row={r,c,v:"",a:p[1]};
    vals.forEach(v=>{const x=document.createElement("button");x.className="chip";x.innerHTML=v;
-    x.onclick=()=>{if(done)return;row.v=v;[...c.children].forEach(y=>y.classList.toggle("s",y===x));$("ok").disabled=cur.rows.some(z=>!z.v);x.blur()};c.appendChild(x)});
-   r.append(l,c);b.appendChild(r);cur.rows.push(row)});
+    x.onclick=()=>{if(done)return;row.v=v;[...c.children].forEach(y=>y.classList.toggle("s",y===x));
+     cur.rows.forEach(z=>{if(z!==row&&z.v===v){z.v="";[...z.c.children].forEach(y=>y.classList.remove("s"))}});
+     $("ok").disabled=cur.rows.some(z=>!z.v);x.blur()};c.appendChild(x)});
+   row.c=c;r.append(l,c);b.appendChild(r);cur.rows.push(row)});
  }else{
-  cur.o=q.t==="tf"?[{t:"صحيحة",ok:q.a},{t:"خاطئة",ok:!q.a}]:sh(q.o.map((t,k)=>({t,ok:q.t==="multi"?k<q.n:k===0})));
+  cur.o=q.t==="tf"?[{t:"صحيحة",ok:q.a},{t:"خاطئة",ok:!q.a}]:sh(q.o.map((t,k)=>({t,i:k,ok:q.t==="multi"?k<q.n:k===0})));
   const multi=q.t==="multi";
   cur.o.forEach((o,k)=>{const x=document.createElement("button");x.className="opt"+(multi?" multi":"");x.innerHTML="<span class='mk'></span><span></span>";x.lastChild.innerHTML=o.t;
    x.onclick=()=>{if(done)return;if(multi){cur.sel.has(k)?cur.sel.delete(k):cur.sel.add(k)}else cur.sel=new Set([k]);
@@ -405,36 +571,47 @@ function show(){
 }
 $("ok").onclick=()=>{
  if(done){i++;i<Q.length?show():finish();return}
- const q=Q[i];let ok=false,extra="";done=true;
- if(q.t==="num"){const v=parseFloat(cur.inp.value.replace(/[−–]/g,"-").replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(",","."));ok=v===q.a;cur.inp.disabled=true;if(!ok)extra=" الإجابة الصحيحة: "+q.a+".";}
- else if(q.t==="match"){ok=true;cur.rows.forEach(x=>{const g=x.v===x.a;x.r.classList.add(g?"ok":"no");if(!g){ok=false;const f=document.createElement("div");f.className="fix";f.innerHTML="الصحيح: "+x.a;x.r.appendChild(f)}})}
- else{ok=cur.o.every((o,k)=>cur.sel.has(k)===o.ok);[...$("body").children].forEach((c,k)=>{c.disabled=true;if(cur.o[k].ok)c.classList.add("ok");else if(cur.sel.has(k))c.classList.add("no")})}
- res[i]=ok;
+ const q=Q[i];let pts=0,extra="";done=true;
+ if(q.t==="num"){const v=parseFloat(cur.inp.value.replace(/[−–]/g,"-").replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[٫,،]/g,"."));pts=Math.abs(v-q.a)<1e-6?1:0;cur.inp.disabled=true;if(!pts)extra=" الإجابة الصحيحة: "+q.a+".";}
+ else if(q.t==="match"){let g=0;cur.rows.forEach(x=>{const c=x.v===x.a;x.r.classList.add(c?"ok":"no");if(c)g++;else{const f=document.createElement("div");f.className="fix";f.innerHTML="الصحيح: "+x.a;x.r.appendChild(f)}});pts=g/cur.rows.length}
+ else{
+  const hits=[...cur.sel].filter(k=>cur.o[k].ok).length,wrong=cur.sel.size-hits;
+  pts=q.t==="multi"?Math.max(0,(hits-wrong)/q.n):(hits===1?1:0);
+  if(q.t==="multi"&&hits===q.n&&wrong===0)pts=1;
+  [...$("body").children].forEach((c,k)=>{c.disabled=true;if(cur.o[k].ok)c.classList.add("ok");else if(cur.sel.has(k))c.classList.add("no")});
+  if(q.t==="mcq"&&pts===0&&q.d){const s=cur.o[[...cur.sel][0]].i;if(q.d[s])extra=" "+q.d[s]}
+ }
+ res[i]=pts;const ok=pts===1;
  streak=ok?streak+1:0;const sk=$("streak");
  if(streak>=2){sk.textContent="تسلسل صحيح: "+streak;sk.classList.remove("hide");sk.style.animation="none";void sk.offsetWidth;sk.style.animation=""}else sk.classList.add("hide");
  if(navigator.vibrate)try{navigator.vibrate(ok?18:[30,40,30])}catch(e){}
- $("fb").innerHTML="<b class='"+(ok?"ok":"no")+"'>"+(ok?"✓ إجابة صحيحة.":"✗ إجابة خاطئة.")+"</b>"+extra+" "+q.e;
- $("fb").classList.remove("hide");rm($("quiz"));$("steps").children[i].className=ok?"g":"b";
+ const hd=ok?"<b class='ok'>✓ إجابة صحيحة.</b>":pts>0?"<b class='pt'>◐ إجابة جزئية ("+Math.round(pts*100)+"%).</b>":"<b class='no'>✗ إجابة خاطئة.</b>";
+ $("fb").innerHTML=hd+extra+" "+q.e;
+ $("fb").classList.remove("hide");rm($("quiz"));$("steps").children[i].className=ok?"g":pts>0?"p":"b";
  $("ok").textContent=i===Q.length-1?"عرض كشف النتيجة":"السؤال التالي";$("ok").disabled=false;
+ $("fb").scrollIntoView({block:"nearest",behavior:"smooth"});
 };
 function finish(){
  clearInterval(clk);document.body.classList.remove("run");
- $("quiz").classList.add("hide");$("res").classList.remove("hide");
- const s=res.filter(Boolean).length,p=s/Q.length*100;
- {const t1=performance.now();const step=t=>{const k=Math.min(1,(t-t1)/900);$("sc").textContent=Math.round(s*k)+" / "+Q.length;if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
+ $("quiz").classList.add("hide");$("res").classList.remove("hide");$("revbox").classList.add("hide");
+ const s=res.reduce((a,b)=>a+b,0),p=s/Q.length*100,fmt=v=>Number.isInteger(+v.toFixed(1))?String(Math.round(v)):v.toFixed(1);
+ {const t1=performance.now();const step=t=>{const k=Math.min(1,(t-t1)/900);$("sc").textContent=fmt(s*k)+" / "+Q.length;if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
  drawVec(p);
  $("gr").textContent=(p>=90?"التقدير: ممتاز":p>=75?"التقدير: جيد جدًا":p>=60?"التقدير: جيد":p>=50?"التقدير: مقبول":"التقدير: يلزم مراجعة الدرس")+" ("+Math.round(p)+"%)";
  const sec=Math.round((Date.now()-t0)/1000),d=new Date(),code=Math.random().toString(36).slice(2,8).toUpperCase();
  const row=(a,b)=>"<dt>"+a+"</dt><dd>"+b+"</dd>";
- $("info").innerHTML=row("الاسم واللقب","")+row("التاريخ",d.toLocaleDateString("ar-DZ")+" "+d.toLocaleTimeString("ar-DZ",{hour:"2-digit",minute:"2-digit"}))+row("مدة الاختبار",Math.floor(sec/60)+" د "+sec%60+" ث")+row("رمز المحاولة","<bdi dir='ltr'>"+code+"</bdi>");
+ $("info").innerHTML=row("الاسم واللقب","")+row("التاريخ",d.toLocaleDateString("ar-DZ")+" "+d.toLocaleTimeString("ar-DZ",{hour:"2-digit",minute:"2-digit"}))+row("مدة الاختبار",Math.floor(sec/60)+" د "+sec%60+" ث")+row("رقم المحاولة",att)+row("رمز المحاولة","<bdi dir='ltr'>"+code+"</bdi>");
  $("info").querySelector("dd").textContent=nm;
- $("lv").innerHTML=LV.map((n,l)=>{const ix=Q.map((q,k)=>q.l===l?k:-1).filter(k=>k>=0),c=ix.filter(k=>res[k]).length;return"<div class='lvr'><div class='t'><span>"+n+"</span><bdi dir='ltr'>"+c+" / "+ix.length+"</bdi></div><div class='b'><i data-w='"+Math.round(c/ix.length*100)+"'></i></div></div>"}).join("");
+ const lvs=[0,1,2].map(l=>{const ix=Q.map((q,k)=>q.l===l?k:-1).filter(k=>k>=0);return{n:ix.length,c:ix.reduce((a,k)=>a+res[k],0)}});
+ $("lv").innerHTML=LV.map((n,l)=>{const o=lvs[l];return"<div class='lvr'><div class='t'><span>"+n+"</span><bdi dir='ltr'>"+fmt(o.c)+" / "+o.n+"</bdi></div><div class='b'><i data-w='"+Math.round(o.c/o.n*100)+"'></i></div></div>"}).join("");
  requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll("#lv .b i").forEach(e=>e.style.width=e.dataset.w+"%")));
- $("map").innerHTML=res.map((r,k)=>"<span class='"+(r?"g":"b")+"'>"+(k+1)+(r?"✓":"✗")+"</span>").join("");
- if(SHEET_URL){const lv=[0,1,2].map(l=>Q.reduce((a,q,k)=>a+(q.l===l&&res[k]?1:0),0));
+ $("map").innerHTML=res.map((r,k)=>"<span class='"+(r===1?"g":r>0?"p":"b")+"'>"+(k+1)+(r===1?"✓":r>0?"◐":"✗")+"</span>").join("");
+ if(SHEET_URL){
+  const ro=new Array(Q.length);Q.forEach((q,k)=>ro[q.k]=+res[k].toFixed(2));
+  const safe=nm.slice(0,60).replace(/^[=+\-@]/,"'$&");
   $("sent").textContent="جارٍ إرسال النتيجة إلى الأستاذ…";
-  fetch(SHEET_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({quiz:"vector",name:nm,score:s,l1:lv[0],l2:lv[1],l3:lv[2],sec,code,res:res.map(r=>r?1:0)})})
-  .then(()=>{$("sent").textContent="✓ تم إرسال نتيجتك إلى الأستاذ."}).catch(()=>{$("sent").textContent="تعذّر الإرسال التلقائي، أرسل لقطة الشاشة إلى الأستاذ."})}
+  fetch(SHEET_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({quiz:"vector",name:safe,score:+s.toFixed(2),l1:+lvs[0].c.toFixed(2),l2:+lvs[1].c.toFixed(2),l3:+lvs[2].c.toFixed(2),sec,code,att,res:ro})})
+  .then(()=>{$("sent").textContent="أُرسلت نتيجتك إلى الأستاذ. إن لم تصل، أرسل لقطة الشاشة."}).catch(()=>{$("sent").textContent="تعذّر الإرسال التلقائي، أرسل لقطة الشاشة إلى الأستاذ."})}
 }
 function drawVec(p){
  const th=p*0.9,r=th*Math.PI/180,x=20+130*Math.cos(r),y=120-130*Math.sin(r),a=$("arw");
